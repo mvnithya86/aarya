@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Our Family - 40 Question Quiz</title>
+  <style>
+    body {
+      font-family: Arial;
+      background-color: #cfe8f7;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      background: #fff4b3;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .result-box {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      max-width: 400px;
+      margin: auto;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>👨‍👩‍👧‍👦 Our Family Quiz (40 Questions)</h2>
+<div class="box" id="quiz"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+emailjs.init("YOUR_PUBLIC_KEY");
+
+let questions = [
+  {q: "A small family with parents and children is called a ___ family.", options: ["Joint", "Nuclear", "Big", "Extended"], answer: "Nuclear"},
+  {q: "A family where grandparents, uncles, and aunts live together is a ___ family.", options: ["Nuclear", "Small", "Joint", "Single"], answer: "Joint"},
+  {q: "Your father's father is your ___.", options: ["Maternal Grandfather", "Paternal Grandfather", "Uncle", "Brother"], answer: "Paternal Grandfather"},
+  {q: "Your mother's sister is your ___.", options: ["Maternal Aunt", "Paternal Aunt", "Grandmother", "Cousin"], answer: "Maternal Aunt"},
+  {q: "A diagram showing family relationships over generations is a ___.", options: ["Family Map", "Family Tree", "Family Table", "Family List"], answer: "Family Tree"},
+  {q: "Paternal relatives belong to your ___ side.", options: ["Mother's", "Father's", "Friend's", "Neighbor's"], answer: "Father's"},
+  {q: "Maternal relatives belong to your ___ side.", options: ["Father's", "Mother's", "Teacher's", "Cousin's"], answer: "Mother's"},
+  {q: "Family members usually share a common ___.", options: ["First Name", "Surname", "Friend", "Pet"], answer: "Surname"},
+  {q: "Children of your uncles and aunts are your ___.", options: ["Siblings", "Cousins", "Nephews", "Nieces"], answer: "Cousins"},
+  {q: "When a family member gets married, the family size ___.", options: ["Decreases", "Stays the same", "Increases", "Disappears"], answer: "Increases"},
+  {q: "Moving to another city for a job is called ___.", options: ["Migration", "Vacation", "Picnic", "Shopping"], answer: "Migration"},
+  {q: "A new baby joining the family makes the family ___.", options: ["Smaller", "Bigger", "Sad", "Quiet"], answer: "Bigger"},
+  {q: "Joint families are more common in ___.", options: ["Big Cities", "Apartments", "Villages", "Offices"], answer: "Villages"},
+  {q: "Who is the head of a traditional joint family?", options: ["The youngest child", "The oldest member", "The neighbor", "The cook"], answer: "The oldest member"},
+  {q: "Working together to clean the house is called ___.", options: ["Competing", "Sharing chores", "Fighting", "Ignoring"], answer: "Sharing chores"},
+  {q: "We should always ___ our elders.", options: ["Disobey", "Ignore", "Respect", "Shout at"], answer: "Respect"},
+  {q: "Family traditions are passed down from ___.", options: ["Friends", "Ancestors", "Strangers", "Television"], answer: "Ancestors"},
+  {q: "A family with only one parent is a ___ family.", options: ["Joint", "Nuclear", "Single-parent", "Twin"], answer: "Single-parent"},
+  {q: "Our family provides us with love and ___.", options: ["Fear", "Security", "Noise", "Hardship"], answer: "Security"},
+  {q: "Celebrating festivals together strengthens family ___.", options: ["Arguments", "Bonds", "Walls", "Distance"], answer: "Bonds"},
+  {q: "Your father's brother is your ___.", options: ["Maternal Uncle", "Paternal Uncle", "Cousin", "Grandfather"], answer: "Paternal Uncle"},
+  {q: "Your mother's mother is your ___.", options: ["Maternal Grandmother", "Paternal Grandmother", "Aunt", "Sister"], answer: "Maternal Grandmother"},
+  {q: "Living in a nuclear family often happens due to ___.", options: ["Lack of space", "Job transfers", "Modern lifestyle", "All of these"], answer: "All of these"},
+  {q: "We learn our first values and habits from our ___.", options: ["School", "Family", "Market", "Park"], answer: "Family"},
+  {q: "A family tree usually starts with the ___ generation at the top.", options: ["Youngest", "Oldest", "Middle", "Pets"], answer: "Oldest"},
+  {q: "Which member is a paternal relative?", options: ["Mother", "Maternal Uncle", "Paternal Aunt", "Mother's Father"], answer: "Paternal Aunt"},
+  {q: "Family members should ___ each other during tough times.", options: ["Blame", "Support", "Leave", "Hide from"], answer: "Support"},
+  {q: "What is another name for a joint family?", options: ["Extended family", "Tiny family", "Private family", "Temporary family"], answer: "Extended family"},
+  {q: "Taking care of a sick family member is an act of ___.", options: ["Selfishness", "Love and care", "Duty only", "Anger"], answer: "Love and care"},
+  {q: "Surnames are usually placed ___ the first name.", options: ["Before", "After", "Inside", "Instead of"], answer: "After"},
+  {q: "Heritage includes ___.", options: ["Values", "Customs", "Traditions", "All of these"], answer: "All of these"},
+  {q: "A family that includes three generations living together is usually ___.", options: ["Nuclear", "Joint", "Single", "Small"], answer: "Joint"},
+  {q: "When someone moves away for studies, the family size at home ___.", options: ["Increases", "Decreases", "Doubles", "Triples"], answer: "Decreases"},
+  {q: "We should be ___ to the needs of elderly members.", options: ["Indifferent", "Sensitive", "Rude", "Careless"], answer: "Sensitive"},
+  {q: "Which of these is a family tradition?", options: ["Sunday brunch", "Annual prayers", "Holiday trips", "All of these"], answer: "All of these"},
+  {q: "Your brother and sister are your ___.", options: ["Cousins", "Siblings", "Parents", "Aunts"], answer: "Siblings"},
+  {q: "A 'pater' root word refers to ___.", options: ["Mother", "Father", "Sister", "Child"], answer: "Father"},
+  {q: "A 'mater' root word refers to ___.", options: ["Father", "Child", "Mother", "Brother"], answer: "Mother"},
+  {q: "Which of these changes a family structure?", options: ["Birth", "Death", "Marriage", "All of these"], answer: "All of these"},
+  {q: "Our family is our ___ school.", options: ["Last", "Second", "First", "Only"], answer: "First"}
+];
+
+let current = 0;
+let score = 0;
+let userAnswers = [];
+
+let clickSound = new Audio("https://actions.google.com/sounds/v1/cartoon/pop.ogg");
+let correctSound = new Audio("https://actions.google.com/sounds/v1/cartoon/boing.ogg");
+let wrongSound = new Audio("https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg");
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function loadQuestion() {
+  if (current >= questions.length) {
+    showResult();
+    sendEmail();
+    return;
+  }
+
+  let q = questions[current];
+  let shuffledOptions = shuffle([...q.options]);
+
+  let html = `<p><b>Question ${current + 1}/40:</b></p><p>${q.q}</p>`;
+
+  shuffledOptions.forEach(opt => {
+    html += `<button onclick="check('${opt.replace(/'/g, "\\'")}', '${q.answer.replace(/'/g, "\\'")}')">${opt}</button>`;
+  });
+
+  document.getElementById("quiz").innerHTML = html;
+}
+
+function check(selected, correct) {
+  clickSound.play();
+  let buttons = document.querySelectorAll("button");
+
+  buttons.forEach(btn => {
+    btn.disabled = true;
+    if (btn.innerText === correct) btn.style.background = "#a8e6a3";
+    if (btn.innerText === selected && selected !== correct) btn.style.background = "#ffb3b3";
+  });
+
+  userAnswers.push({ question: questions[current].q, selected: selected, correct: correct });
+
+  if (selected === correct) {
+    score++;
+    correctSound.play();
+  } else {
+    wrongSound.play();
+  }
+
+  setTimeout(() => {
+    current++;
+    loadQuestion();
+  }, 800);
+}
+
+function showResult() {
+  let message = score >= 35 ? "🌟 Expert!" : score >= 25 ? "👏 Great Job!" : "💪 Keep Learning!";
+  document.getElementById("quiz").innerHTML = `
+    <div class="result-box">
+      <h3>${message}</h3>
+      <p>Your Final Score: <b>${score}/40</b></p>
+      <p>📧 Results sent to teacher.</p>
+      <button onclick="location.reload()">Restart Quiz</button>
+    </div>
+  `;
+}
+
+function sendEmail() {
+  let answersText = userAnswers.map((item, i) => 
+    `Q${i+1}: ${item.question}\nUser: ${item.selected}\nCorrect: ${item.correct}\n\n`
+  ).join("");
+
+  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+    to_email: "mvnithya35@gmail.com",
+    score: score + "/40",
+    answers: answersText
+  });
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
