@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Class 4 Science: Human Body & Air Challenge</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eaf2f8;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #2e4053;
+      margin-bottom: 5px;
+    }
+
+    h3 {
+      color: #7f8c8d;
+      margin-top: 0;
+      font-weight: 400;
+    }
+
+    #score {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+
+    .box {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      max-width: 550px;
+      margin: auto;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #2c3e50;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #d5dbdb;
+      background: #fdfefe;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    button:hover:not([disabled]) {
+      background: #f4f6f7;
+      transform: translateY(-1px);
+    }
+
+    #result {
+      font-size: 22px;
+      font-weight: bold;
+      color: #27ae60;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>🫁 Chapter 2: Human Body & Environment</h2>
+<h3>Interactive Revision Quiz</h3>
+
+<div id="score">Score: 0</div>
+
+<div class="box" id="quiz"></div>
+
+<div id="result"></div>
+
+<script>
+
+let questions = [
+  // 1. Internal vs. External Organs (Reference: IMG_20260624_173623.jpg)
+  {q: "Which of the following is an example of an external organ?", options: ["Nose", "Brain", "Heart"], answer: 0},
+  {q: "Organs that are located inside our body and cannot be seen directly are called ______.", options: ["Internal organs", "External organs", "Skeletal organs"], answer: 0},
+  {q: "Which bony structure surrounds and protects our delicate brain?", options: ["Skull", "Ribcage", "Backbone"], answer: 0},
+  {q: "A group of organs that work together to perform a particular major function is known as an ______.", options: ["Organ system", "Internal organ", "Organism"], answer: 0},
+  {q: "Which internal organ acts as the control center of our body, helping us think, feel, and remember?", options: ["Brain", "Liver", "Stomach"], answer: 0},
+
+  // 2. Internal Organs & Functions (Reference: IMG_20260624_173630.jpg)
+  {q: "Where exactly is the heart located inside the human body?", options: ["In the chest cavity between the two lungs", "Inside the skull", "In the lower abdomen behind the ribs"], answer: 0},
+  {q: "Which organ beats throughout a human's life and pumps blood to all parts of the body?", options: ["Heart", "Lungs", "Kidneys"], answer: 0},
+  {q: "The stomach is a bag-like organ shaped like which letter of the alphabet?", options: ["J-shaped", "C-shaped", "U-shaped"], answer: 0},
+  {q: "Which organ is responsible for producing juices that specifically help in the breakdown of food?", options: ["Liver", "Kidneys", "Lungs"], answer: 0},
+  {q: "What is the primary function of our kidneys?", options: ["To filter and remove wastes from blood as urine", "To pump oxygen-rich blood", "To absorb nutrients from food"], answer: 0},
+  {q: "Identify the largest internal organ of the human body.", options: ["Liver", "Stomach", "Heart"], answer: 0},
+
+  // 3. Respiratory System (Reference: IMG_20260624_173630.jpg & IMG_20260624_173632.jpg)
+  {q: "Which pair of air-filled organs helps us breathe and exchange gases?", options: ["Lungs", "Kidneys", "Intestines"], answer: 0},
+  {q: "What is the correct scientific term for the windpipe?", options: ["Trachea", "Bronchus", "Esophagus"], answer: 0},
+  {q: "Our nose contains fine hair and a sticky material inside called ______. What is it?", options: ["Mucus", "Saliva", "Plasma"], answer: 0},
+  {q: "What is the main function of the fine hair and mucus present inside our nose?", options: ["To trap dust particles and germs", "To help us smell foods", "To cool down hot air"], answer: 0},
+  {q: "The muscular, dome-shaped sheet that helps our lungs expand and contract during breathing is the ______.", options: ["Diaphragm", "Ribcage", "Abdomen"], answer: 0},
+  {q: "During inhalation (breathing in), what happens to the ribs and the diaphragm?", options: ["Ribs move outwards, diaphragm moves downwards", "Ribs move inwards, diaphragm moves upwards", "Ribs and diaphragm both move upwards"], answer: 0},
+  {q: "During exhalation (breathing out), the diaphragm shifts in which direction?", options: ["Upwards", "Downwards", "Outwards"], answer: 0},
+  {q: "The term 'Lung capacity' refers directly to which measurement?", options: ["The volume of air that the lungs can hold", "The speed at which we breathe", "The weight of the two lungs combined"], answer: 0},
+
+  // 4. Deep Breathing & Yoga (Reference: IMG_20260624_173637.jpg)
+  {q: "Which ancient form of Indian exercise incorporates deep inhalation and holding the breath?", options: ["Pranayama (Yoga)", "Aerobics", "Sprinting"], answer: 0},
+  {q: "What is a recommended starting position for practicing simple deep breathing exercises?", options: ["Sit comfortably with your back straight", "Lie flat on your stomach", "Stand on one leg"], answer: 0},
+
+  // 5. Air Pollution Causes & Effects (Reference: IMG_20260624_173637.jpg & IMG_20260624_173648.jpg)
+  {q: "The addition of harmful substances into the atmosphere that makes the air dirty and unsafe is called ______.", options: ["Air pollution", "Deforestation", "Global warming"], answer: 0},
+  {q: "Which gas is released when we breathe out (exhale) during respiration?", options: ["Carbon dioxide", "Oxygen", "Nitrogen"], answer: 0},
+  {q: "Which of the following is considered a primary human-made cause of air pollution?", options: ["Smoke from factories and vehicles", "Planting garden trees", "Using solar energy"], answer: 0},
+  {q: "Which type of health problems can be directly triggered or worsened by breathing polluted air?", options: ["Respiratory diseases like asthma", "Skeletal fractures", "Digestive food allergies"], answer: 0},
+  {q: "Which layer of our atmosphere shields the Earth from harmful ultraviolet (UV) radiations from the sun?", options: ["Ozone layer", "Hydrosphere", "Crust"], answer: 0},
+
+  // 6. Measures to Reduce Air Pollution (Reference: IMG_20260624_173637.jpg & IMG_20260624_173639.jpg)
+  {q: "Which eco-friendly fuel option can be used in vehicles to significantly reduce urban air pollution?", options: ["CNG (Compressed Natural Gas)", "Petrol", "Diesel"], answer: 0},
+  {q: "How does planting more trees (afforestation) directly help in purifying our atmosphere?", options: ["Trees absorb carbon dioxide and release oxygen", "Trees block the wind from moving pollution", "Trees chemically destroy smoke particles"], answer: 0},
+  {q: "Instead of driving a personal motor vehicle, which practice helps cut down daily air pollution?", options: ["Using public transport or cycling", "Leaving the car engine running", "Burning household dry leaves"], answer: 0},
+  {q: "Which item should be avoided to minimize pollution, replaced instead by jute or cloth bags?", options: ["Plastic bags", "Paper bags", "Cardboard boxes"], answer: 0}
+];
+
+let current = 0;
+let score = 0;
+
+let currentShuffledOptions = [];
+let correctTextForCurrentQuestion = "";
+
+// Sound Effects Setup
+let clickSound = new Audio("https://actions.google.com/sounds/v1/cartoon/pop.ogg");
+let correctSound = new Audio("https://actions.google.com/sounds/v1/cartoon/boing.ogg");
+let wrongSound = new Audio("https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg");
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function loadQuestion() {
+  if (current >= questions.length) {
+    document.getElementById("quiz").innerHTML = "";
+    document.getElementById("result").innerHTML =
+      "🎉 Review Completed! Your Final Score: " + score + " / " + questions.length;
+    return;
+  }
+
+  let q = questions[current];
+  correctTextForCurrentQuestion = q.options[q.answer];
+  currentShuffledOptions = shuffle([...q.options]);
+
+  let html = `<p><b>Question ${current + 1}:</b><br>${q.q}</p>`;
+  currentShuffledOptions.forEach((opt, index) => {
+    html += `<button onclick="check(${index})">${opt}</button>`;
+  });
+
+  document.getElementById("quiz").innerHTML = html;
+}
+
+function check(selectedIndex) {
+  clickSound.play().catch(e => {});
+  let selectedText = currentShuffledOptions[selectedIndex];
+  let buttons = document.querySelectorAll("#quiz button");
+
+  buttons.forEach((btn, idx) => {
+    btn.disabled = true;
+    let btnText = currentShuffledOptions[idx];
+
+    if (btnText === correctTextForCurrentQuestion) {
+      btn.style.background = "#a8e6a3"; // Green highlight for correct choice
+    }
+    if (idx === selectedIndex && selectedText !== correctTextForCurrentQuestion) {
+      btn.style.background = "#ffb3b3"; // Red highlight for wrong selection
+    }
+  });
+
+  if (selectedText === correctTextForCurrentQuestion) {
+    score++;
+    correctSound.play().catch(e => {});
+  } else {
+    wrongSound.play().catch(e => {});
+  }
+
+  document.getElementById("score").innerText = "Score: " + score;
+
+  setTimeout(() => {
+    current++;
+    loadQuestion();
+  }, 1400); // Small delay so your students can visually process the feedback
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
